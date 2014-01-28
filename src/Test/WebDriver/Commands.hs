@@ -134,7 +134,8 @@ closeSession = do s <- getSession
                   noReturn $ doSessCommand DELETE "" Null
                   putSession s { wdSessId = Nothing }
 
--- |Sets the amount of time we implicitly wait when searching for elements.
+-- |Sets the amount of time in miliseconds we implicitly wait when
+-- searching for elements.
 setImplicitWait :: WebDriver wd => Integer -> wd ()
 setImplicitWait ms =
   noReturn $ doSessCommand POST "/timeouts/implicit_wait" (object msField)
@@ -143,8 +144,8 @@ setImplicitWait ms =
   where msField   = ["ms" .= ms]
         allFields = ["type" .= ("implicit" :: String)] ++ msField
 
--- |Sets the amount of time we wait for an asynchronous script to return a
--- result.
+-- |Sets the amount of time in miliseconds we wait for an asynchronous
+-- script to return a result.
 setScriptTimeout :: WebDriver wd => Integer -> wd ()
 setScriptTimeout ms =
   noReturn $ doSessCommand POST "/timeouts/async_script" (object msField)
